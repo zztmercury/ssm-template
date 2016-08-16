@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" monitorInterval="1800">
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <!--输出到tomcat根目录的logs下-->
+        <RollingFile name="RollingFile" filename="${sys:catalina.home}/logs/wechat/wechat.log"
+                     filepattern="${sys:catalina.home}/logs/项目名/项目名_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+                <SizeBasedTriggeringPolicy size="51200 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
